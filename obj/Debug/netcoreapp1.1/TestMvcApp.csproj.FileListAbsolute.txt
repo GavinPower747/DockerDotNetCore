@@ -1,8 +1,0 @@
-/home/gavin/Source/TestMvcApp/bin/Debug/netcoreapp1.1/TestMvcApp.deps.json
-/home/gavin/Source/TestMvcApp/bin/Debug/netcoreapp1.1/TestMvcApp.runtimeconfig.json
-/home/gavin/Source/TestMvcApp/bin/Debug/netcoreapp1.1/TestMvcApp.runtimeconfig.dev.json
-/home/gavin/Source/TestMvcApp/bin/Debug/netcoreapp1.1/TestMvcApp.dll
-/home/gavin/Source/TestMvcApp/bin/Debug/netcoreapp1.1/TestMvcApp.pdb
-/home/gavin/Source/TestMvcApp/obj/Debug/netcoreapp1.1/TestMvcApp.AssemblyInfo.cs
-/home/gavin/Source/TestMvcApp/obj/Debug/netcoreapp1.1/TestMvcApp.dll
-/home/gavin/Source/TestMvcApp/obj/Debug/netcoreapp1.1/TestMvcApp.pdb
