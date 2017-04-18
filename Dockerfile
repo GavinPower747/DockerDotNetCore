@@ -10,8 +10,7 @@ COPY . /app
 #Do a .Net restore
 RUN dotnet restore
 
-#Expose port 5000 (default kestrel port)
-EXPOSE 5000
+EXPOSE 80
 
 #Define environment variable
 ENV ASPNETCORE_ENVIRONMENT Development
