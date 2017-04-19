@@ -25,7 +25,9 @@ namespace TestMvcApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddSingleton(Config);
+            
+            services.AddOptions();
+            services.Configure<Strings>(Config.GetSection("Strings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

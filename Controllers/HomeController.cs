@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace TestMvcApp.Controllers
 {
     public class HomeController
     {
-        private readonly IConfiguration _config;
+        private readonly IOptions<Strings> _config;
 
-        public HomeController(IConfiguration config)
+        public HomeController(IOptions<Strings> config)
         {
             _config = config;
         }
@@ -15,7 +15,7 @@ namespace TestMvcApp.Controllers
         [HttpGet]
         public string Index(string message)
         {
-            return _config["Strings:ReturnMessage"];
+            return _config.Value.ReturnMessage;
         }
     }
 }
