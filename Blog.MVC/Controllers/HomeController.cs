@@ -7,9 +7,9 @@ namespace TestMvcApp.Controllers
     {
         private readonly IOptions<Strings> _config;
 
-        public HomeController(IOptions<Strings> config)
+        public HomeController(IOptions<Strings> strings)
         {
-            _config = config;
+            _config = strings;
         }
 
         [HttpGet]
