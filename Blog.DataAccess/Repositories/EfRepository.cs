@@ -17,6 +17,25 @@ namespace Blog.DataAccess.Repositories
             _dbContext = context;
         }
 
+        public T Get<T, TKey>(TKey id) where T : BaseEntity<TKey>
+        {
+            var entities = _dbContext.Set<T>();
+
+            return entities.Find(id);
+        }
+
+        public IEnumerable<T> Get<T, TKey>(Expression<Func<T, bool>> predicate) where T : BaseEntity<TKey>
+        {
+            var entities = _dbContext.Set<T>();
+            return entities.Where(predicate);
+        }
+
+        public IEnumerable<T> GetAll<T, TKey>() where T : BaseEntity<TKey>
+        {
+            var entities = _dbContext.Set<T>();
+            return entities.AsEnumerable();
+        }
+
         public void Create<T, TKey>(T entity) where T : BaseEntity<TKey>
         {
             ValidateEntity(entity);
@@ -35,20 +54,6 @@ namespace Blog.DataAccess.Repositories
 
             entities.Remove(entity);
             _dbContext.SaveChanges();
-        }
-
-        public T Get<T, TKey>(TKey id) where T : BaseEntity<TKey>
-        {
-            var entities = _dbContext.Set<T>();
-
-            return entities.Find(id);
-        }
-
-        public IEnumerable<T> Get<T, TKey>(Expression<Func<T, bool>> predicate) where T : BaseEntity<TKey>
-        {
-            var entities = _dbContext.Set<T>();
-
-            return entities.Where(predicate);
         }
 
         public void Update<T, TKey>(T entity) where T : BaseEntity<TKey>

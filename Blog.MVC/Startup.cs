@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Blog.DataAccess.Context;
+using Blog.DataAccess.Repositories;
+using Blog.DataAccess.Contracts.Repositories;
+using Blog.MVC.Settings;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,7 +31,10 @@ namespace TestMvcApp
             services.AddMvc();
             
             services.AddOptions();
-            services.Configure<Strings>(Config.GetSection("Strings"));
+            services.Configure<DatabaseSettings>(Config.GetSection("Database"));
+
+            services.AddDbContext<ApplicationDbContext>();
+            services.AddScoped<IRepository, EfRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

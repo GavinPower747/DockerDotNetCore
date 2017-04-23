@@ -9,6 +9,7 @@ namespace Blog.DataAccess.Contracts.Repositories
     {
         T Get<T, TKey>(TKey id) where T: BaseEntity<TKey>;
         IEnumerable<T> Get<T, TKey>(Expression<Func<T, bool>> predicate) where T: BaseEntity<TKey>;
+        IEnumerable<T> GetAll<T, TKey>() where T : BaseEntity<TKey>;
         void Create<T, TKey>(T entity) where T : BaseEntity<TKey>;
         void Update<T, TKey>(T entity) where T : BaseEntity<TKey>;
         void Delete<T, TKey>(T entity) where T : BaseEntity<TKey>;
