@@ -3,7 +3,7 @@ using Blog.Model.Entities;
 
 namespace Blog.Model.Posts
 {
-    public class Post : ITimeStampedEntity<Guid>
+    public class Post : BaseEntity<Guid>, ITimeStampedEntity<Guid>
     {
         public Guid Id { get; set; }
         public DateTime Created { get; set; }
