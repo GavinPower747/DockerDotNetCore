@@ -2,14 +2,16 @@
 using Blog.DataAccess.Repositories;
 using Blog.DataAccess.Contracts.Repositories;
 using Blog.MVC.Settings;
+using Blog.Services.Posts;
+using Blog.Services.Contracts.Posts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
-
-namespace TestMvcApp
+namespace Blog.MVC
 {
     public class Startup
     {
@@ -31,10 +33,13 @@ namespace TestMvcApp
             services.AddMvc();
             
             services.AddOptions();
-            services.Configure<DatabaseSettings>(Config.GetSection("Database"));
 
-            services.AddDbContext<ApplicationDbContext>();
-            services.AddScoped<IRepository, EfRepository>();
+            services.Configure<Strings>(Config.GetSection("Strings"));
+
+            services.AddTransient<IPostService, PostService>();
+
+            ConfigureDatabase(services);
+            services.AddTransient<IRepository, EfRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,7 +52,28 @@ namespace TestMvcApp
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(x => 
+                x.MapRoute(name: "default",
+                           template: "{controller=Home}/{action=Index}/{id?}")
+            );
         }
+
+        private void ConfigureDatabase(IServiceCollection services)
+        {
+            var useSQLite = Config.GetValue<bool>("Database:UseSQLite");
+
+            if(useSQLite)
+            {
+                var connectionString = Config.GetValue<string>("Database:ConnectionStrings:SQLiteConnectionString");
+                services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
+            }
+            else
+            {
+                var connectionString = Config.GetValue<string>("Database:ConnectionStrings:SQLConnectionString");
+                services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+            }
+        }
+    
+
     }
 }

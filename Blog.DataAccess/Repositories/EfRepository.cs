@@ -42,7 +42,9 @@ namespace Blog.DataAccess.Repositories
 
             var entities = _dbContext.Set<T>();
 
-            entities.Add(entity);
+            var timestampedEntity = (T)UpdateTimeStamps(entity, true);
+
+            entities.Add(timestampedEntity);
             _dbContext.SaveChanges();
         }
 
@@ -70,12 +72,15 @@ namespace Blog.DataAccess.Repositories
                 throw new ArgumentNullException("Unable to perform operation: Entity cannot be null");
         }
 
-        private IEntity<TKey> UpdateTimeStamps<TKey>(IEntity<TKey> entity)
+        private IEntity<TKey> UpdateTimeStamps<TKey>(IEntity<TKey> entity, bool isInsert = false)
         {
             var timestampedEntity = entity as ITimeStampedEntity<TKey>;
 
             if(timestampedEntity == null)
                 return entity;
+
+            if(isInsert)
+                timestampedEntity.Created = DateTime.UtcNow;
         
             timestampedEntity.LastModified = DateTime.UtcNow;
 

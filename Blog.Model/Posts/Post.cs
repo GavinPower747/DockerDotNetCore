@@ -8,6 +8,7 @@ namespace Blog.Model.Posts
         public DateTime Created { get; set; }
         public DateTime LastModified { get; set; }
         public string AuthorName { get; set; }
+        public string Title { get; set; }
         public string Content { get; set; }
     }
 }

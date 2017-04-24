@@ -1,21 +1,30 @@
+using Blog.MVC.Settings;
+using Blog.MVC.ViewModels;
+using Blog.Services.Contracts.Posts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace TestMvcApp.Controllers
+namespace Blog.MVC.Controllers
 {
-    public class HomeController
+    public class HomeController : Controller
     {
-        private readonly IOptions<Strings> _config;
+        private readonly IPostService _postService;
 
-        public HomeController(IOptions<Strings> strings)
+        public HomeController(IPostService postService)
         {
-            _config = strings;
+            _postService = postService;
         }
 
         [HttpGet]
-        public string Index(string message)
+        public IActionResult Index()
         {
-            return _config.Value.ReturnMessage;
+            var posts = _postService.GetAllPosts();
+            var viewModel = new BlogViewModel
+            {
+                Posts = posts
+            };
+
+            return View(viewModel);
         }
     }
 }

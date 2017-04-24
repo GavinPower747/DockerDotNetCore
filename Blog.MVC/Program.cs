@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
-namespace TestMvcApp
+namespace Blog.MVC
 {
     public class Program
     {
@@ -10,7 +10,7 @@ namespace TestMvcApp
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseUrls("http://*:80")
+                .UseUrls("http://*:5000")
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();

@@ -1,0 +1,11 @@
+@{
+    Layout = "_Layout";
+}
+
+@foreach(var post in Model.Posts)
+{
+    <div class="Post">
+        <p>Title: @post.Title</p>
+        <p>By: @post.AuthorName</p>
+    </div>
+}

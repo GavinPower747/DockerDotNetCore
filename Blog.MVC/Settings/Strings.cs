@@ -1,4 +1,7 @@
-public class Strings
+namespace Blog.MVC.Settings
 {
-    public string ReturnMessage { get; set; }
+    public class Strings
+    {
+        public string ReturnMessage { get; set; }
+    }
 }

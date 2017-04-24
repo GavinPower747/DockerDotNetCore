@@ -1,16 +1,18 @@
 FROM microsoft/dotnet:latest
 
-#Create working dir designate it as such
+#Create working directory
 RUN mkdir -p /app
-WORKDIR /app
 
 #Copy everything into the working directory
 COPY . /app
 
-#Do a .Net restore
-RUN dotnet restore
+#Set the app entry point as the working directory
+WORKDIR /app/Blog.MVC
 
-EXPOSE 80
+#Do a .Net restore
+RUN dotnet restore ../TestMvcApp.sln
+
+EXPOSE 5000
 
 #Define environment variable
 ENV ASPNETCORE_ENVIRONMENT Development

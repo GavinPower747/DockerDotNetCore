@@ -1,9 +1,12 @@
 using System;
 
-public class ExceptionController
+namespace Blog.MVC.Controllers
 {
-    public void Index()
+    public class ExceptionController
     {
-        throw new Exception("This was meant to happen");
+        public void Index()
+        {
+            throw new Exception("This was meant to happen");
+        }
     }
 }
