@@ -36,7 +36,7 @@ namespace Blog.DataAccess.Repositories
             return entities.AsEnumerable();
         }
 
-        public void Create<T, TKey>(T entity) where T : BaseEntity<TKey>
+        public T Create<T, TKey>(T entity) where T : BaseEntity<TKey>
         {
             ValidateEntity(entity);
 
@@ -46,6 +46,8 @@ namespace Blog.DataAccess.Repositories
 
             entities.Add(timestampedEntity);
             _dbContext.SaveChanges();
+
+            return timestampedEntity;
         }
 
         public void Delete<T, TKey>(T entity) where T : BaseEntity<TKey>

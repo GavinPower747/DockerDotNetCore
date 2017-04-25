@@ -1,8 +1,10 @@
+using Blog.Model.Posts;
 using Blog.MVC.Settings;
 using Blog.MVC.ViewModels;
 using Blog.Services.Contracts.Posts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System;
 
 namespace Blog.MVC.Controllers
 {
@@ -25,6 +27,31 @@ namespace Blog.MVC.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Post post)
+        {
+            var response = _postService.InsertPost(post);
+
+            if(response.Result == CreatePostResult.Failure)
+                return BadRequest();
+            
+            return Created($"/Edit/{response.PostId}", post);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(Guid Id)
+        {
+            var response = _postService.GetPost(Id);
+
+            return View(response);
         }
     }
 }

@@ -15,21 +15,38 @@ namespace Blog.Services.Posts
             _repo = repo;
         }
 
+        public Post GetPost(Guid Id)
+        {
+            var post = _repo.Get<Post, Guid>(Id);
+
+            if(post == null)
+                throw new ArgumentException($"Could not find post with Id {Id}");
+            
+            return post;
+        }
+
         public IEnumerable<Post> GetAllPosts()
         {
             return _repo.GetAll<Post, Guid>();
         }
 
-        public CreatePostResult InsertPost(Post post)
+        public CreatePostResponse InsertPost(Post post)
         {
             try
             {
-                _repo.Create<Post, Guid>(post);
-                return CreatePostResult.Success;
+                var savedEntity = _repo.Create<Post, Guid>(post);
+                return new CreatePostResponse
+                {
+                    PostId = savedEntity.Id,
+                    Result = CreatePostResult.Success   
+                };
             }
             catch
             {
-                return CreatePostResult.Failure;
+                return new CreatePostResponse
+                {
+                    Result = CreatePostResult.Failure   
+                };
             }
         }
     }

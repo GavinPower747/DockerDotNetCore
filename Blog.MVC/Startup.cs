@@ -34,8 +34,6 @@ namespace Blog.MVC
             
             services.AddOptions();
 
-            services.Configure<Strings>(Config.GetSection("Strings"));
-
             services.AddTransient<IPostService, PostService>();
 
             ConfigureDatabase(services);
@@ -54,7 +52,7 @@ namespace Blog.MVC
 
             app.UseMvc(x => 
                 x.MapRoute(name: "default",
-                           template: "{controller=Home}/{action=Index}/{id?}")
+                           template: "{controller=Home}/{action=Index}/{Id?}")
             );
         }
 

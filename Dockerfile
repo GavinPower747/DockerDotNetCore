@@ -12,6 +12,9 @@ WORKDIR /app/Blog.MVC
 #Do a .Net restore
 RUN dotnet restore ../TestMvcApp.sln
 
+#Restore the database
+RUN dotnet ef database update
+
 EXPOSE 5000
 
 #Define environment variable

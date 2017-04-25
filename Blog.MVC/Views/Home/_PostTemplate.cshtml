@@ -1,0 +1,22 @@
+@model Blog.Model.Posts.Post
+
+<div class="post">
+  <div class="post-meta">
+    <div class="row">
+      <div class="post-title">
+        <h2>@Model.Title</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="posted-date">
+        @Model.Created
+      </div>
+    </div>
+  </div>
+  <div class="post-body">
+    @Model.Content
+  </div>
+  <div class="post-foot">
+    @Html.ActionLink("Edit", "Edit", new { Id = Model.Id })
+  </div>
+</div>

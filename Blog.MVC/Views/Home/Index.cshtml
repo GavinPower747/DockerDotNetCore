@@ -1,11 +1,19 @@
+@model Blog.MVC.ViewModels.BlogViewModel
 @{
     Layout = "_Layout";
 }
 
-@foreach(var post in Model.Posts)
+@Html.ActionLink("Create Post", "Create", "Home")
+<hr/>
+
+@if(Model.Posts.Count() > 0)
 {
-    <div class="Post">
-        <p>Title: @post.Title</p>
-        <p>By: @post.AuthorName</p>
-    </div>
+    foreach(var post in Model.Posts)
+    {
+        @Html.Partial("_PostTemplate", post)
+    }
+}
+else
+{
+    <p>No Posts</p>
 }
